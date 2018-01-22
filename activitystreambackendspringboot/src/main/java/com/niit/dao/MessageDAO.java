@@ -17,10 +17,10 @@ public interface MessageDAO {
 	//public boolean sendMessageToUserOutbox(Outbox outbox);
 	public Message getMessageByUserEmail(String email);
 	
-	public Outbox getuserbyMessageIdOutbox(int messageId);
-	public boolean deleteSendMessage(Outbox outbox);
+	public Outbox getUserOutbox(int messageId);
+	public boolean deleteSendMessage(int MessageId);
 	
-	public Inbox getuserbyMessageIdInbox(int messageId);
-	public boolean deleteReceivedMessage(Inbox inbox);
+	public Inbox getUserInbox(int messageId);
+	public boolean deleteReceivedMessage(int MessageId);
 	
 }

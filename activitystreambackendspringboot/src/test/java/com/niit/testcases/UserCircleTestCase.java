@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.niit.dao.CircleDAO;
@@ -22,46 +23,47 @@ import com.niit.main.SpringBoot;
 import com.niit.model.Circle;
 import com.niit.model.UserCircle;
 
-@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT,classes=SpringBoot.class)
 @RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = SpringBoot.class)
+@EnableAspectJAutoProxy
 public class UserCircleTestCase {
-	static AnnotationConfigApplicationContext context;
+	//static AnnotationConfigApplicationContext context;
     @Autowired
-	private static UserCircle userCircle;
+	private  UserCircle userCircle;
     @Autowired
-	private static UserCircleDAO userCircleDAO;
+	private  UserCircleDAO userCircleDAO;
 	//static GregorianCalendar gregorianCalendar;
 	
 	
-	@BeforeClass
+	/*@BeforeClass
 	public static void circleinit() {
 		context = new AnnotationConfigApplicationContext();
 		context.scan("com.stackroute.activitystream.ActivityStreamBackend");
 		context.refresh();
-		/*circle=(Circle) context.getBean("circle");
-		circleDAO=(CircleDAO) context.getBean("circleDAO");*/
+		circle=(Circle) context.getBean("circle");
+		circleDAO=(CircleDAO) context.getBean("circleDAO");
 		userCircleDAO=(UserCircleDAO)context.getBean("userCircleDAO");
 		
 		userCircle=(UserCircle)context.getBean("userCircle");
 		//gregorianCalendar=new GregorianCalendar();
 		
-	}
+	}*/
 	
 	@Test
 	public void testSaveUserToCircle() {
 		//userCircle.setUserCircleId(20);
-		userCircle.setUserId("thrijita@yahoo.com");
+		userCircle.setUserId("Tinku@yahoo.com");
 		userCircle.setUserJoinedDate(new Date());
 		assertEquals(true,userCircleDAO.addUserToCircle(userCircle));
 		}
-	/*
+	
 	 @Test
 	 public void testDeleteUser() {
-		 //boolean userCircle=userCircleDAO.deleteUserFromCircle(101);
+		 //boolean userCircle=userCircleDAO.deleteUserFromCircle(590);
 		 
-		 userCircleDAO.deleteUserFromCircle(400);
+		 userCircleDAO.deleteUserFromCircle(480);
 		 assertNotNull(userCircle);
 	 }
-	*/
+	
 	
 }

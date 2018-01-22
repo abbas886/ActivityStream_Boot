@@ -124,41 +124,41 @@ public class MessageDAOImpl implements MessageDAO {
 		}
 	}
 
-	public Outbox getuserbyMessageIdOutbox(int messageId) {
+	public Outbox getUserOutbox(int messageId) {
 		// TODO Auto-generated method stub
 		Outbox outbox=(Outbox) sessionFactory.getCurrentSession().get(Outbox.class, messageId);
 		return outbox;
 		
 	}
 	
-	public boolean deleteSendMessage(Outbox outbox) {
+	public boolean deleteSendMessage(int messageID) {
 		
 		try
 		{
-		sessionFactory.getCurrentSession().delete(outbox);
+		sessionFactory.getCurrentSession().delete(getUserOutbox(messageID));
 		return true;
 		}
 		catch(Exception e)
-		{
+		{e.printStackTrace();
 			return false;
 		}
 	}
 
-	public Inbox getuserbyMessageIdInbox(int messageId) {
+	public Inbox getUserInbox(int messageId) {
 		// TODO Auto-generated method stub
 		Inbox inbox=(Inbox) sessionFactory.getCurrentSession().get(Inbox.class, messageId);
 		return inbox;
 		
 	}
 	
-	public boolean deleteReceivedMessage(Inbox inbox) {
+	public boolean deleteReceivedMessage(int messageId) {
 		try
 		{
-		sessionFactory.getCurrentSession().delete(inbox);
+		sessionFactory.getCurrentSession().delete(getUserInbox(messageId));
 		return true;
 		}
 		catch(Exception e)
-		{
+		{e.printStackTrace();
 			return false;
 		}
 	}

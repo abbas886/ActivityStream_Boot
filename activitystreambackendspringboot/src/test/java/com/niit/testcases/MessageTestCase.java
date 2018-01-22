@@ -11,42 +11,52 @@ import javax.validation.constraints.AssertTrue;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.niit.dao.CircleDAO;
 import com.niit.dao.MessageDAO;
 import com.niit.dao.UserCircleDAO;
+import com.niit.main.SpringBoot;
 import com.niit.model.Circle;
 import com.niit.model.Inbox;
 import com.niit.model.Message;
 import com.niit.model.Outbox;
 import com.niit.model.UserCircle;
 
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = SpringBoot.class)
+@EnableAspectJAutoProxy
 public class MessageTestCase {
 	
+	/*@Autowired
+	private static AnnotationConfigApplicationContext context;*/
 	@Autowired
-	private static AnnotationConfigApplicationContext context;
+	private  Circle circle;
 	@Autowired
-	private static Circle circle;
+	private  CircleDAO circleDAO;
 	@Autowired
-	private static CircleDAO circleDAO;
+	private  UserCircle userCircle;
 	@Autowired
-	private static UserCircle userCircle;
-	@Autowired
-	private static UserCircleDAO userCircleDAO;
+	private  UserCircleDAO userCircleDAO;
 	//static GregorianCalendar gregorianCalendar;
 	@Autowired
-	private static Message message;
+	private  Message message;
 	@Autowired
-	private static MessageDAO messageDAO;
+	private  MessageDAO messageDAO;
 	@Autowired
-	private static Inbox inbox;
+	private  Inbox inbox;
 	@Autowired
-	private static Outbox outbox;
+	private  Outbox outbox;
 	
 	
-	@BeforeClass
+	/*@BeforeClass
 	public static void messageinit() {
 		context = new AnnotationConfigApplicationContext();
 		context.scan("com.stackroute.activitystream.ActivityStreamBackend");
@@ -62,16 +72,16 @@ public class MessageTestCase {
 		
 		//gregorianCalendar=new GregorianCalendar();
 		
-	}
+	}*/
 	
 	@Test
 	public void testSendMessageToCircle() {
 		message.setCircleId(1);
 		//message.setMessageId(4);
 		//message.setUserEmailId("null");
-		message.setSenderEmailId("B.com@yahoo.com");
+		message.setSenderEmailId("sudhakar@yahoo.com");
 		message.setMessageType("text");
-		message.setMessageData("MCA ....!");
+		message.setMessageData("sudhakar ....!");
 		message.setMessageDate(new Date());
 		assertEquals(true,messageDAO.sendMessageToCircle(message));
 		}
@@ -80,10 +90,10 @@ public class MessageTestCase {
 	public void testSendMessageToUser() {
 	 	//message.setCircleId(0);
 		//message.setMessageId(5);
-		message.setSenderEmailId("Suchithra@yahoo.com");
-		message.setRecieverEmailId("Sangamithra@gmail.com");
+		message.setSenderEmailId("sudhakar@yahoo.com");
+		message.setRecieverEmailId("Diwakar@gmail.com");
 		message.setMessageType("text");
-		message.setMessageData("Suchithra,Sangamithra....");
+		message.setMessageData("sudhakar,Diwakar....");
 		message.setMessageDate(new Date());
 		assertEquals(true,messageDAO.sendMessageToUser(message));
 		
@@ -130,7 +140,7 @@ public class MessageTestCase {
 	@Test
 	public void getMessageByUser() {
 		
-		List<Message> messageList = messageDAO.getMessageByUser("Suchithra@yahoo.com","Sangamithra@gmail.com");
+		List<Message> messageList = messageDAO.getMessageByUser("sudhakar@yahoo.com","Diwakar@gmail.com");
 		assertNotNull(messageList);
 		for (Message messageData : messageList) {
 			System.out.println(messageData.getMessageData());	
@@ -140,14 +150,14 @@ public class MessageTestCase {
 	
 	 @Test
 	 public void deleteSendMessage() {
-		 Outbox outbox=messageDAO.getuserbyMessageIdOutbox(350);
-		 assertTrue(messageDAO.deleteSendMessage(outbox));
+		// Outbox outbox=messageDAO.getUserOutbox(470);
+		 assertTrue(messageDAO.deleteSendMessage(470));
 	 }
 	 
 	 @Test
 	 public void deleteReceivedMessage() {
-		 Inbox inbox=messageDAO.getuserbyMessageIdInbox(150);
-		 assertTrue(messageDAO.deleteReceivedMessage(inbox));
+		// Inbox inbox=messageDAO.getUserInbox(340);
+		 assertTrue(messageDAO.deleteReceivedMessage(390));
 	 }
 	 
 	 
